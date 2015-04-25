@@ -16,8 +16,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
+/*
+ * References to Book codes and pages exist here. This needs to be taken care of immediately. 
+ */
 public class GUI extends JFrame implements DialogClient{
-		
+	
 	public int GUI_DISPLAY_LIMIT = 100;
 	int auto;
 
@@ -91,7 +95,7 @@ public class GUI extends JFrame implements DialogClient{
 		theAddButtonListener = new ActionListener()	{
 			public void actionPerformed(ActionEvent event)	{
 				int hold = 0;
-				newEmployee = new Employee(hold, "" , "", "");
+				newEmployee = new Employee(hold, "" , "", "", "");
 				
 				EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
 				addD.updateButton.setEnabled(false);
@@ -209,11 +213,12 @@ public class GUI extends JFrame implements DialogClient{
 	        int count = 0;
 	        while (rs.next() && count < GUI_DISPLAY_LIMIT){
 	        	Employee employee = new Employee(
-	        			rs.getInt("employeeNumber"),
-	        			rs.getString("employeeName"),
-	        			rs.getString("phoneNumber"),
-	        			rs.getString("officeLocation")
-	        			);
+	            		rs.getInt("STaffID"),
+	            		rs.getString("FirstName"),
+	            		rs.getString("LastName"),
+	            		rs.getString("PhoneNumber"),
+	            		rs.getString("OfficeLocation")
+	            		);
 	        	
 	            employeeSearchResults.add(employee);
             count++;
@@ -297,7 +302,9 @@ public class GUI extends JFrame implements DialogClient{
 			System.out.println("UPDATE: " + employeeBeingEdited );
 			String tempPage = employeeBeingEdited.getphoneNumber();
 			String tempTitle = employeeBeingEdited.getofficeLocation();
-			String tempBookCode = employeeBeingEdited.getemployeeName();
+			
+			// Change has happened here that needs to be configured for the first and last names... 
+			String tempBookCode = employeeBeingEdited.getemployeeFirstName();
 			
 			/*
 			Using PreparedStatements in order to prevent SQL injection
@@ -353,7 +360,7 @@ public class GUI extends JFrame implements DialogClient{
 			temp = auto + 1;
 			String tempPage = newEmployee.getphoneNumber();
 			String tempTitle = newEmployee.getofficeLocation();
-			String tempBookCode = newEmployee.getemployeeName();
+			String tempBookCode = newEmployee.getemployeeFirstName();
 			System.out.println("ADD: " + newEmployee );
 
 			/*
