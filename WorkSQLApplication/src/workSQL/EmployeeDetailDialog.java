@@ -131,8 +131,7 @@ public class EmployeeDetailDialog extends JDialog {
         layout.setConstraints(officeLocationField, lc);
    		getContentPane().add(officeLocationField);
 
-   		// Change has happened here that needs to be configured for first and last names...
-		employeeNameField = new JTextField(theEmployee.getemployeeFirstName());
+		employeeNameField = new JTextField(theEmployee.getemployeeName());
 		employeeNameField.setFont(UIFont);
 
         lc.gridx = 1; lc.gridy = 1;
@@ -206,7 +205,7 @@ public class EmployeeDetailDialog extends JDialog {
 	private void updateButtonClicked(){
 		
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeFirstName(employeeNameField.getText());
+		theEmployee.setemployeeName(employeeNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
 		
 		//Inform the dialog client that the dialog finished
@@ -222,7 +221,7 @@ public class EmployeeDetailDialog extends JDialog {
 	
 	private void addButtonClicked()	{
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeFirstName(employeeNameField.getText());
+		theEmployee.setemployeeName(employeeNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
 		theEmployee.setemployeeNumber(Integer.parseInt(employeeNumberField.getText()));
 		
@@ -240,7 +239,7 @@ public class EmployeeDetailDialog extends JDialog {
 	private void deleteButtonClicked(){
 		
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeFirstName(employeeNameField.getText());
+		theEmployee.setemployeeName(employeeNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
 		
 		//Inform the dialog client that the dialog finished

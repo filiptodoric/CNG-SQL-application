@@ -16,12 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-/*
- * References to Book codes and pages exist here. This needs to be taken care of immediately. 
- */
 public class GUI extends JFrame implements DialogClient{
-	
+		
 	public int GUI_DISPLAY_LIMIT = 100;
 	int auto;
 
@@ -42,7 +38,7 @@ public class GUI extends JFrame implements DialogClient{
 	private Employee newEmployee;
 	
 	// Store the view that contains the components
-	ListPanel view; //panel of GUI components for the main window
+	ListPanel 		view; //panel of GUI components for the main window
 	GUI thisFrame;
 
 	// Here are the component listeners
@@ -95,7 +91,7 @@ public class GUI extends JFrame implements DialogClient{
 		theAddButtonListener = new ActionListener()	{
 			public void actionPerformed(ActionEvent event)	{
 				int hold = 0;
-				newEmployee = new Employee(hold, "" , "", "", "");
+				newEmployee = new Employee(hold, "" , "", "");
 				
 				EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
 				addD.updateButton.setEnabled(false);
@@ -169,7 +165,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void enableListeners() {
 		view.getSearchButton().addActionListener(theSearchButtonListener);
 		view.getdepartmentList().addListSelectionListener(departmentListSelectionListener);
-		//view.getEmployeeList().add(employeeListSelectionListener);
+		view.getEmployeeList().addListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().addMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().addKeyListener(keyListener);
 		view.getAddButton().addActionListener(theAddButtonListener);
@@ -179,7 +175,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void disableListeners() {
 		view.getSearchButton().removeActionListener(theSearchButtonListener);
 		view.getdepartmentList().removeListSelectionListener(departmentListSelectionListener);
-		//view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
+		view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().removeMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().removeKeyListener(keyListener);
 		view.getAddButton().removeActionListener(theAddButtonListener);
@@ -213,12 +209,11 @@ public class GUI extends JFrame implements DialogClient{
 	        int count = 0;
 	        while (rs.next() && count < GUI_DISPLAY_LIMIT){
 	        	Employee employee = new Employee(
-	            		rs.getInt("STaffID"),
-	            		rs.getString("FirstName"),
-	            		rs.getString("LastName"),
-	            		rs.getString("PhoneNumber"),
-	            		rs.getString("OfficeLocation")
-	            		);
+	        			rs.getInt("employeeNumber"),
+	        			rs.getString("employeeName"),
+	        			rs.getString("phoneNumber"),
+	        			rs.getString("officeLocation")
+	        			);
 	        	
 	            employeeSearchResults.add(employee);
             count++;
@@ -249,7 +244,7 @@ public class GUI extends JFrame implements DialogClient{
 	}
 	// This is called when the user selects a employee from the list
 	private void selectEmployee() {
-		//selectedEmployee = (Employee)(view.getEmployeeList().getSelectedColumn());
+		selectedEmployee = (Employee)(view.getEmployeeList().getSelectedValue());
 		System.out.println("Employee Selected: " + selectedEmployee);
 	
 		update();
@@ -271,12 +266,12 @@ public class GUI extends JFrame implements DialogClient{
 	    view.getdepartmentList().setListData(((Department []) departmentList.toArray(DepartmentArray)));
 
 	    Employee employeeArray[] = new Employee[1]; //just to establish array type
-	   // view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
+	    view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
 
 		if (selectedDepartment != null)
 			view.getdepartmentList().setSelectedValue(selectedDepartment, true);
-		//if (selectedEmployee != null)
-			//view.getEmployeeList().setSelectedValue(selectedEmployee, true);
+		if (selectedEmployee != null)
+			view.getEmployeeList().setSelectedValue(selectedEmployee, true);
 	}
 
 	// Update the components
@@ -302,9 +297,7 @@ public class GUI extends JFrame implements DialogClient{
 			System.out.println("UPDATE: " + employeeBeingEdited );
 			String tempPage = employeeBeingEdited.getphoneNumber();
 			String tempTitle = employeeBeingEdited.getofficeLocation();
-			
-			// Change has happened here that needs to be configured for the first and last names... 
-			String tempBookCode = employeeBeingEdited.getemployeeFirstName();
+			String tempBookCode = employeeBeingEdited.getemployeeName();
 			
 			/*
 			Using PreparedStatements in order to prevent SQL injection
@@ -360,7 +353,7 @@ public class GUI extends JFrame implements DialogClient{
 			temp = auto + 1;
 			String tempPage = newEmployee.getphoneNumber();
 			String tempTitle = newEmployee.getofficeLocation();
-			String tempBookCode = newEmployee.getemployeeFirstName();
+			String tempBookCode = newEmployee.getemployeeName();
 			System.out.println("ADD: " + newEmployee );
 
 			/*
