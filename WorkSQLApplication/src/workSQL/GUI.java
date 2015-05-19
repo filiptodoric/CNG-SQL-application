@@ -42,7 +42,7 @@ public class GUI extends JFrame implements DialogClient{
 	private Employee newEmployee;
 	
 	// Store the view that contains the components
-	ListPanel 		view; //panel of GUI components for the main window
+	ListPanel view; //panel of GUI components for the main window
 	GUI thisFrame;
 
 	// Here are the component listeners
@@ -169,7 +169,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void enableListeners() {
 		view.getSearchButton().addActionListener(theSearchButtonListener);
 		view.getdepartmentList().addListSelectionListener(departmentListSelectionListener);
-		view.getEmployeeList().addListSelectionListener(employeeListSelectionListener);
+		//view.getEmployeeList().add(employeeListSelectionListener);
 		view.getEmployeeList().addMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().addKeyListener(keyListener);
 		view.getAddButton().addActionListener(theAddButtonListener);
@@ -179,7 +179,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void disableListeners() {
 		view.getSearchButton().removeActionListener(theSearchButtonListener);
 		view.getdepartmentList().removeListSelectionListener(departmentListSelectionListener);
-		view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
+		//view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().removeMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().removeKeyListener(keyListener);
 		view.getAddButton().removeActionListener(theAddButtonListener);
@@ -249,7 +249,7 @@ public class GUI extends JFrame implements DialogClient{
 	}
 	// This is called when the user selects a employee from the list
 	private void selectEmployee() {
-		selectedEmployee = (Employee)(view.getEmployeeList().getSelectedValue());
+		//selectedEmployee = (Employee)(view.getEmployeeList().getSelectedColumn());
 		System.out.println("Employee Selected: " + selectedEmployee);
 	
 		update();
@@ -271,12 +271,12 @@ public class GUI extends JFrame implements DialogClient{
 	    view.getdepartmentList().setListData(((Department []) departmentList.toArray(DepartmentArray)));
 
 	    Employee employeeArray[] = new Employee[1]; //just to establish array type
-	    view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
+	   // view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
 
 		if (selectedDepartment != null)
 			view.getdepartmentList().setSelectedValue(selectedDepartment, true);
-		if (selectedEmployee != null)
-			view.getEmployeeList().setSelectedValue(selectedEmployee, true);
+		//if (selectedEmployee != null)
+			//view.getEmployeeList().setSelectedValue(selectedEmployee, true);
 	}
 
 	// Update the components

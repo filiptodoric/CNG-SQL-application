@@ -2,7 +2,11 @@ package workSQL;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 // This is the Panel that contains represents the view of the
 // Music Store
@@ -14,8 +18,11 @@ public class ListPanel extends JPanel {
 	private JButton		addButton;
 	private JTextField  searchText;
 	private JList		departmentList;
-	private JList		employeeList;
-	
+	public JTable		employeeList;
+	public static final String[] columnNames = {
+		"Employee ID", "First Name", "Last Name", "Office Location", "Phone Extension"
+	};
+
 	private Font UIFont = new Font("Times New Roman", Font.BOLD, 18); //Courier New
 
 
@@ -23,10 +30,10 @@ public class ListPanel extends JPanel {
 	public JButton getSearchButton() { return searchButton; }
 	public JButton getAddButton() { return addButton; }
 	public JList getdepartmentList() { return departmentList; }
-	public JList getEmployeeList() { return employeeList; }
+	public JTable getEmployeeList() { return employeeList; }
 	public JTextField getSearchText() { return searchText; }
-	
-	
+
+
 
 
 	// This is the default constructor
@@ -43,8 +50,8 @@ public class ListPanel extends JPanel {
 		departmentList.setFont(UIFont);
 		departmentList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		JScrollPane scrollPane = new JScrollPane( departmentList,
-			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
 		layoutConstraints.gridwidth = 1;
@@ -87,7 +94,7 @@ public class ListPanel extends JPanel {
 		layout.setConstraints(searchButton, layoutConstraints);
 		add(searchButton);
 
-		
+
 		// Add the add button
 		addButton = new JButton("Add");
 		layoutConstraints.gridx = 2;
@@ -101,15 +108,16 @@ public class ListPanel extends JPanel {
 		layoutConstraints.weighty = 0.0;
 		layout.setConstraints(addButton, layoutConstraints);
 		add(addButton);
-		
+
 		
 		// Add the employeeList list
-		employeeList = new JList();
+		employeeList = new JTable();
+
 		employeeList.setFont(UIFont);
-		employeeList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
 		scrollPane = new JScrollPane( employeeList,
-			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		layoutConstraints.gridx = 1;
 		layoutConstraints.gridy = 1;
 		layoutConstraints.gridwidth = 2;
