@@ -31,7 +31,7 @@ public class javaWithSQliteMain {
 		//Connect to database
         try {
         	//user=filip;password=snowman
-        	String url = "jdbc:sqlserver://FILIPTODORICPC:1434;databaseName=master;integratedSecurity=true"; //;user=filip;password=snowman";
+        	String url = "jdbc:sqlserver://FILIPTODORICPC:1434;databaseName=Vodigi;integratedSecurity=true"; //;user=filip;password=snowman";
         	String username = "filip";
         	String password = "snowman";
         	
@@ -48,7 +48,7 @@ public class javaWithSQliteMain {
 
                 //Query database for initial contents for GUI at start up
 
-	            String sqlQueryString = "select * from department;"; // order by code asc
+	            String sqlQueryString = "select * from dbo.departments;"; // order by code asc
 	            System.out.println("");
 	            System.out.println(sqlQueryString);
 
@@ -56,15 +56,15 @@ public class javaWithSQliteMain {
 
 		        ResultSet rs = stat.executeQuery(sqlQueryString);
 		        while (rs.next()) {
-		            Department department = new Department(rs.getString("departmentName"), rs.getString("departmentNumber"));
+		            Department department = new Department(rs.getString("Name"), rs.getString("DepartmentID"));
 		            departmentList.add(department);
 		        }
 		        rs.close(); //close the query result table
 		        
 
 
-	            sqlQueryString = "select * from employees;";
-	            String please = "select * from employees;";
+	            sqlQueryString = "select * from dbo.staff;";
+	            String please = "select * from dbo.staff;";
 		       
 	            System.out.println("");
 	            System.out.println(sqlQueryString);
@@ -103,12 +103,11 @@ public class javaWithSQliteMain {
 		        	
 		        	
 		            Employee employee = new Employee(
-		            		rs.getInt("employeeNumber"),
-		            		rs.getString("employeeName"),
-		            		rs.getString("phoneNumber"),
-		            		rs.getString("officeLocation")
+		            		rs.getInt("StaffID"),
+		            		rs.getString("FirstName"),
+		            		rs.getString("PhoneNumber"),
+		            		rs.getString("OfficeLocation")
 		            		);
-		            elements.add(rs.getString("employeeName"));
 		            employeeSearchResults.add(employee);
 	            count++;
 		        }
