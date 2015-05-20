@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 
 import java.util.*;
 import java.io.*;
@@ -51,13 +52,13 @@ public class GUI extends JFrame implements DialogClient{
 
 
 	// Here is the default constructor
-	public GUI(String title, Connection aDB, Statement aStatement, ArrayList<Department> initialDepartments, ArrayList<Employee> initialEmployees) {
+	public GUI(String title, Connection aDB, Statement aStatement, ArrayList<Department> initialDepartments, ArrayList<Employee> initialEmployees, DefaultTableModel dtm) {
 		super(title);
 		databaseConnection = aDB;
 		stat = aStatement;
 
         departmentList = initialDepartments;
-        employeeList = initialEmployees;
+        //employeeList = initialEmployees;
 		selectedDepartment = null;
 		selectedEmployee = null;
 		thisFrame = this;
@@ -80,7 +81,7 @@ public class GUI extends JFrame implements DialogClient{
 
 
 		// Make the main window view panel
-		add(view = new ListPanel());
+		add(view = new ListPanel(dtm));
 
 		// Add a listener for the add button
 		theSearchButtonListener = new ActionListener() {
@@ -158,7 +159,7 @@ public class GUI extends JFrame implements DialogClient{
 		setSize(600,300);
 
 		// Start off with everything updated properly to reflect the model state
-		update();
+		//update();
 	}
 
 	// Enable all listeners
@@ -175,7 +176,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void disableListeners() {
 		view.getSearchButton().removeActionListener(theSearchButtonListener);
 		view.getdepartmentList().removeListSelectionListener(departmentListSelectionListener);
-		view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
+		//view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().removeMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().removeKeyListener(keyListener);
 		view.getAddButton().removeActionListener(theAddButtonListener);
@@ -276,7 +277,7 @@ public class GUI extends JFrame implements DialogClient{
 
 	// Update the components
 	private void update() {
-		disableListeners();
+		//disableListeners();
 		updateList();
 		updateSearchButton();
 		enableListeners();

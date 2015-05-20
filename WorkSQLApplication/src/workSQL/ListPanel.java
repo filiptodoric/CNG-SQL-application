@@ -2,7 +2,10 @@ package workSQL;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Vector;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 // This is the Panel that contains represents the view of the
 // Music Store
@@ -14,7 +17,7 @@ public class ListPanel extends JPanel {
 	private JButton		addButton;
 	private JTextField  searchText;
 	private JList		departmentList;
-	private JList		employeeList;
+	public JTable		employeeList;
 	
 	private Font UIFont = new Font("Times New Roman", Font.BOLD, 18); //Courier New
 
@@ -23,14 +26,14 @@ public class ListPanel extends JPanel {
 	public JButton getSearchButton() { return searchButton; }
 	public JButton getAddButton() { return addButton; }
 	public JList getdepartmentList() { return departmentList; }
-	public JList getEmployeeList() { return employeeList; }
+	public JList getEmployeeList() { return null; } //employeeList
 	public JTextField getSearchText() { return searchText; }
 	
 	
 
 
 	// This is the default constructor
-	public ListPanel(){
+	public ListPanel(DefaultTableModel dtm){
 		super();
 
 		// Use a GridBagLayout (lotsa fun)
@@ -104,9 +107,9 @@ public class ListPanel extends JPanel {
 		
 		
 		// Add the employeeList list
-		employeeList = new JList();
+		employeeList = new JTable(dtm); 
 		employeeList.setFont(UIFont);
-		employeeList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		//employeeList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		scrollPane = new JScrollPane( employeeList,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
