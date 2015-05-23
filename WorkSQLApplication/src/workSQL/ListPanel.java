@@ -7,9 +7,6 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-// This is the Panel that contains represents the view of the
-// Music Store
-
 public class ListPanel extends JPanel {
 
 	// These are the components
@@ -26,7 +23,7 @@ public class ListPanel extends JPanel {
 	public JButton getSearchButton() { return searchButton; }
 	public JButton getAddButton() { return addButton; }
 	public JList getdepartmentList() { return departmentList; }
-	public JList getEmployeeList() { return null; } //employeeList
+	public JTable getEmployeeList() { return employeeList; } //employeeList
 	public JTextField getSearchText() { return searchText; }
 	
 	
@@ -108,7 +105,7 @@ public class ListPanel extends JPanel {
 		
 		// Add the employeeList list
 		employeeList = new JTable(dtm)	{
-			public boolean isCellEditable(int row, int column)	{	return false;	}
+		public boolean isCellEditable(int row, int column)	{	return false;	}
 		}; 
 		employeeList.setFont(UIFont);
 		//employeeList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");

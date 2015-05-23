@@ -6,8 +6,8 @@ public class Department {
 	 */
 	
 	private String departmentName; //string code for department
-	
-	public Department(String aDepartment, String aDepartmentNumber){
+	//private String departmentNumber;
+	public Department(String aDepartment){
 		departmentName = aDepartment;
 		//departmentNumber = aDepartmentNumber;
 	}
