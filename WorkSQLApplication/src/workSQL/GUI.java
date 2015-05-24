@@ -93,12 +93,12 @@ public class GUI extends JFrame implements DialogClient{
 			theAddButtonListener = new ActionListener()	{
 				public void actionPerformed(ActionEvent event)	{
 					int hold = 0;
-					newEmployee = new Employee(hold, "" , "", "");
+					newEmployee = new Employee(hold, "" , "", "", "");
 
 					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
 					addD.updateButton.setEnabled(false);
 					addD.deleteButton.setEnabled(false);
-					addD.employeeNumberField.setEnabled(false);
+					addD.lastNameField.setEnabled(false);
 					addD.setVisible(true);
 				}
 			};
@@ -126,7 +126,7 @@ public class GUI extends JFrame implements DialogClient{
 
 
 								EmployeeDetailDialog dialog = new EmployeeDetailDialog(thisFrame, thisFrame, "Update an existing employee", true, employeeBeingEdited);         
-								dialog.employeeNumberField.setEnabled(false);
+								dialog.lastNameField.setEnabled(true);
 								dialog.addButton.setEnabled(false);
 								dialog.setVisible(true);
 
@@ -209,6 +209,7 @@ public class GUI extends JFrame implements DialogClient{
 				Employee employee = new Employee(
 						rs.getInt("StaffID"),
 						rs.getString("FirstName"),
+						rs.getString("LastName"),
 						rs.getString("phoneNumber"),
 						rs.getString("officeLocation")
 						);
@@ -323,7 +324,7 @@ public class GUI extends JFrame implements DialogClient{
 			System.out.println("UPDATE: " + employeeBeingEdited );
 			String tempPage = employeeBeingEdited.getphoneNumber();
 			String tempTitle = employeeBeingEdited.getofficeLocation();
-			String tempBookCode = employeeBeingEdited.getemployeeName();
+			String tempBookCode = employeeBeingEdited.getFirstName();
 
 			/*
 			Using PreparedStatements in order to prevent SQL injection
@@ -380,7 +381,7 @@ public class GUI extends JFrame implements DialogClient{
 			temp = auto + 1;
 			String tempPage = newEmployee.getphoneNumber();
 			String tempTitle = newEmployee.getofficeLocation();
-			String tempBookCode = newEmployee.getemployeeName();
+			String tempBookCode = newEmployee.getFirstName();
 			System.out.println("ADD: " + newEmployee );
 
 			/*

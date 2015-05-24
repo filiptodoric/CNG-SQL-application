@@ -15,9 +15,9 @@ public class EmployeeDetailDialog extends JDialog {
 	private JLabel					aLabel; //reuseable label variable
 	
 	public JTextField				officeLocationField; 
-	public JTextField				employeeNameField; 
+	public JTextField				firstNameField; 
 	public JTextField				phoneNumberField; 
-	public JTextField				employeeNumberField;
+	public JTextField				lastNameField;
 	
 	public JButton					updateButton;
 	public JButton					deleteButton;
@@ -86,7 +86,7 @@ public class EmployeeDetailDialog extends JDialog {
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
 
-        aLabel = new JLabel("Employee Name");
+        aLabel = new JLabel("First Name");
         lc.gridx = 0; lc.gridy = 1;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
@@ -94,14 +94,14 @@ public class EmployeeDetailDialog extends JDialog {
         getContentPane().add(aLabel);
 
         aLabel = new JLabel("Phone Number");
-        lc.gridx = 0; lc.gridy = 2;
+        lc.gridx = 0; lc.gridy = 3;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
 
-        aLabel = new JLabel("Employee Number");
-        lc.gridx = 0; lc.gridy = 3;
+        aLabel = new JLabel("Last Name");
+        lc.gridx = 0; lc.gridy = 2;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
@@ -131,19 +131,19 @@ public class EmployeeDetailDialog extends JDialog {
         layout.setConstraints(officeLocationField, lc);
    		getContentPane().add(officeLocationField);
 
-		employeeNameField = new JTextField(theEmployee.getemployeeName());
-		employeeNameField.setFont(UIFont);
+		firstNameField = new JTextField(theEmployee.getFirstName());
+		firstNameField.setFont(UIFont);
 
         lc.gridx = 1; lc.gridy = 1;
         lc.gridwidth = 3; lc.gridheight = 1;
         lc.fill = GridBagConstraints.BOTH;
         lc.weightx = 1.0; lc.weighty = 0.0;
-        layout.setConstraints(employeeNameField, lc);
-   		getContentPane().add(employeeNameField);
+        layout.setConstraints(firstNameField, lc);
+   		getContentPane().add(firstNameField);
         
 		phoneNumberField = new JTextField(""+ theEmployee.getphoneNumber());
 		phoneNumberField.setFont(UIFont);
-        lc.gridx = 1; lc.gridy = 2;
+        lc.gridx = 1; lc.gridy = 3;
         lc.gridwidth = 3; lc.gridheight = 1;
         lc.fill = GridBagConstraints.BOTH;
         lc.weightx = 1.0; lc.weighty = 0.0;
@@ -151,15 +151,14 @@ public class EmployeeDetailDialog extends JDialog {
    		getContentPane().add(phoneNumberField);
         
 
-		employeeNumberField = new JTextField(""+ theEmployee.getemployeeNumber());
-		employeeNumberField.setFont(UIFont);
-		lc.gridx = 1; lc.gridy = 3;
+		lastNameField = new JTextField(""+ theEmployee.getLastName());
+		lastNameField.setFont(UIFont);
+		lc.gridx = 1; lc.gridy = 2;
         lc.gridwidth = 3; lc.gridheight = 1;
         lc.fill = GridBagConstraints.BOTH;
         lc.weightx = 1.0; lc.weighty = 0.0;
-        layout.setConstraints(employeeNumberField, lc);
-   		getContentPane().add(employeeNumberField);
-
+        layout.setConstraints(lastNameField, lc);
+   		getContentPane().add(lastNameField);
 
 		// Add the Update button
 		updateButton = new JButton("UPDATE");
@@ -205,7 +204,8 @@ public class EmployeeDetailDialog extends JDialog {
 	private void updateButtonClicked(){
 		
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeName(employeeNameField.getText());
+		theEmployee.setFirstName(firstNameField.getText());
+		theEmployee.setLastName(lastNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
 		
 		//Inform the dialog client that the dialog finished
@@ -221,9 +221,10 @@ public class EmployeeDetailDialog extends JDialog {
 	
 	private void addButtonClicked()	{
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeName(employeeNameField.getText());
+		theEmployee.setFirstName(firstNameField.getText());
+		theEmployee.setLastName(lastNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
-		theEmployee.setemployeeNumber(Integer.parseInt(employeeNumberField.getText()));
+		theEmployee.setemployeeNumber(Integer.parseInt(lastNameField.getText()));
 		
 		
 		//Inform the dialog client that the dialog finished
@@ -239,7 +240,8 @@ public class EmployeeDetailDialog extends JDialog {
 	private void deleteButtonClicked(){
 		
 		theEmployee.setofficeLocation(officeLocationField.getText());
-		theEmployee.setemployeeName(employeeNameField.getText());
+		theEmployee.setFirstName(firstNameField.getText());
+		theEmployee.setLastName(lastNameField.getText());
 		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
 		
 		//Inform the dialog client that the dialog finished

@@ -1,18 +1,19 @@
 package workSQL;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
-
+//import java.awt.event.*;
+//import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 public class ListPanel extends JPanel {
 
 	// These are the components
 	private JButton		searchButton;
 	private JButton		addButton;
 	private JTextField  searchText;
+	@SuppressWarnings("rawtypes")
 	private JList		departmentList;
 	public JTable		employeeList;
 	
@@ -22,6 +23,7 @@ public class ListPanel extends JPanel {
 	// These are the get methods that are used to access the components
 	public JButton getSearchButton() { return searchButton; }
 	public JButton getAddButton() { return addButton; }
+	@SuppressWarnings("rawtypes")
 	public JList getdepartmentList() { return departmentList; }
 	public JTable getEmployeeList() { return employeeList; } //employeeList
 	public JTextField getSearchText() { return searchText; }
@@ -30,7 +32,7 @@ public class ListPanel extends JPanel {
 
 
 	// This is the default constructor
-	@SuppressWarnings("serial")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ListPanel(DefaultTableModel dtm){
 		super();
 

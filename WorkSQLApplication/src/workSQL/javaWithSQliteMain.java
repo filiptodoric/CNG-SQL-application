@@ -86,6 +86,7 @@ public class javaWithSQliteMain {
 				Employee employee = new Employee(
 						work.getInt("StaffID"),
 						work.getString("FirstName"),
+						work.getString("LastName"),
 						work.getString("PhoneNumber"),
 						work.getString("OfficeLocation")
 						);
