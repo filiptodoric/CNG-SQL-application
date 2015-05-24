@@ -30,6 +30,7 @@ public class ListPanel extends JPanel {
 
 
 	// This is the default constructor
+	@SuppressWarnings("serial")
 	public ListPanel(DefaultTableModel dtm){
 		super();
 
@@ -105,10 +106,9 @@ public class ListPanel extends JPanel {
 		
 		// Add the employeeList list
 		employeeList = new JTable(dtm)	{
-		public boolean isCellEditable(int row, int column)	{	return false;	}
+			public boolean isCellEditable(int row, int column)	{	return false;	}
 		}; 
 		employeeList.setFont(UIFont);
-		//employeeList.setPrototypeCellValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		scrollPane = new JScrollPane( employeeList,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

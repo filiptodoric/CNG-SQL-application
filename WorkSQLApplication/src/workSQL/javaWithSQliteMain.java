@@ -95,9 +95,7 @@ public class javaWithSQliteMain {
 
 			Employee[] employeeArray = new Employee[1]; 
 			employeeArray =  employeeSearchResults.toArray(employeeArray);
-//			for (Employee s : employeeSearchResults) {
-//		        System.out.println(s);
-//		    } 
+
 
 			/*
 			 * The following creates the GUI
@@ -107,19 +105,13 @@ public class javaWithSQliteMain {
 
 
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-
 		//make GUI visible
 		frame.setVisible(true);
-
-
-
 
 	}
 

@@ -13,10 +13,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class GUI extends JFrame implements DialogClient{
 
 	public int GUI_DISPLAY_LIMIT = 100;
@@ -25,7 +26,7 @@ public class GUI extends JFrame implements DialogClient{
 	String employeeSelected = "";
 	Connection databaseConnection;
 	Statement stat;
-
+	String refreshJTable = "select * from dbo.staff";
 	ArrayList<Department> departmentList = new ArrayList<Department>();
 	ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
@@ -79,10 +80,14 @@ public class GUI extends JFrame implements DialogClient{
 		// Make the main window view panel
 		add(view = new ListPanel(dtm));
 
-		// Add a listener for the add button
 		theSearchButtonListener = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				search();
+				try {
+					search();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}};
 
 			theAddButtonListener = new ActionListener()	{
@@ -102,7 +107,7 @@ public class GUI extends JFrame implements DialogClient{
 
 			employeeListSelectionListener = new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent event) {
-					selectEmployee();
+					//selectEmployee();
 				}};
 				departmentListSelectionListener = new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
@@ -115,9 +120,8 @@ public class GUI extends JFrame implements DialogClient{
 						public void mouseClicked(MouseEvent event) {
 							if (event.getClickCount() == 2) {
 								JTable theTable = (JTable) event.getSource();
-//								JList theList = (JList) event.getSource();
 								int index = theTable.rowAtPoint(event.getPoint());
-								employeeBeingEdited = editEmployee();//(Employee) theTable.getModel().getValueAt(1, 1);//getElementAt(index);
+								employeeBeingEdited = editEmployee();
 								System.out.println("Double Click on: " + employeeBeingEdited);
 
 
@@ -147,7 +151,7 @@ public class GUI extends JFrame implements DialogClient{
 
 								int keyChar = arg0.getKeyChar();
 
-								if (keyChar == KeyEvent.VK_ENTER)  search();
+								//if (keyChar == KeyEvent.VK_ENTER)  search();
 
 							}};
 
@@ -182,16 +186,16 @@ public class GUI extends JFrame implements DialogClient{
 
 
 	// This is called when the user clicks the add button
-	private void search() {
+	private void search() throws SQLException {
 
 		String tempText = view.getSearchText().getText().trim();
 		String sqlSearch;
 
 		if(employeeSelected.length() < 2){
-			sqlSearch = "select * from employees where officeLocation like '%" + tempText + "%'";
+			sqlSearch = "select * from dbo.staff where officeLocation like '%" + tempText + "%'";
 			System.out.println(sqlSearch);}
 		else{
-			sqlSearch = "select * from employees where officeLocation like '%" + tempText + "%' and employeeName = '" + employeeSelected + "'";
+			sqlSearch = "select * from dbo.staff where officeLocation like '%" + tempText + "%' and FirstName = '" + employeeSelected + "'";
 		}
 
 		try {
@@ -203,8 +207,8 @@ public class GUI extends JFrame implements DialogClient{
 			int count = 0;
 			while (rs.next()){
 				Employee employee = new Employee(
-						rs.getInt("employeeNumber"),
-						rs.getString("employeeName"),
+						rs.getInt("StaffID"),
+						rs.getString("FirstName"),
 						rs.getString("phoneNumber"),
 						rs.getString("officeLocation")
 						);
@@ -220,6 +224,7 @@ public class GUI extends JFrame implements DialogClient{
 
 		System.out.println("Search clicked");
 		update();
+		updateJTable(sqlSearch);
 	}
 
 
@@ -238,7 +243,6 @@ public class GUI extends JFrame implements DialogClient{
 	private void selectEmployee() {
 		int row = view.getEmployeeList().getSelectedRow();
 		selectedEmployee = employeeList.get(row);
-		System.out.println("Employee Selected: " + selectedEmployee);
 		update();
 	}
 
@@ -262,8 +266,6 @@ public class GUI extends JFrame implements DialogClient{
 		Department DepartmentArray[] = new Department[1]; //just to establish array type
 		view.getdepartmentList().setListData(((Department []) departmentList.toArray(DepartmentArray)));
 
-//		Employee employeeArray[] = new Employee[1]; //just to establish array type
-//		view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
 
 		if (selectedDepartment != null)
 			view.getdepartmentList().setSelectedValue(selectedDepartment, true);
@@ -277,6 +279,33 @@ public class GUI extends JFrame implements DialogClient{
 		updateList();
 		updateSearchButton();
 		enableListeners();
+	}
+	
+
+	public void updateJTable(String query) throws SQLException	{
+		ResultSet work = stat.executeQuery(query);
+		ResultSetMetaData rsmeta = work.getMetaData();
+		int columns = rsmeta.getColumnCount();
+		DefaultTableModel dtm = new DefaultTableModel();
+		Vector column_name = new Vector();
+		Vector data_rows = new Vector();
+
+		for(int i = 1; i < columns; i++)	{
+			column_name.addElement(rsmeta.getColumnName(i)); 
+		}
+		dtm.setColumnIdentifiers(column_name);
+
+		while(work.next())	{
+			data_rows = new Vector();
+			for(int j = 1; j < columns; j++)	{
+				data_rows.addElement(work.getString(j));
+			}
+			dtm.addRow(data_rows);
+		}
+		
+		view.employeeList.setModel(dtm);
+		view.employeeList.repaint();
+
 	}
 
 	@Override
@@ -300,21 +329,22 @@ public class GUI extends JFrame implements DialogClient{
 			Using PreparedStatements in order to prevent SQL injection
 			 */
 			try {
-				PreparedStatement stmtPAGE = databaseConnection.prepareStatement("update employees set phoneNumber =?  where employeeNumber=?");
+				PreparedStatement stmtPAGE = databaseConnection.prepareStatement("update dbo.staff set PhoneNumber =?  where StaffID=?");
 				stmtPAGE.setString(1, tempPage);
 				stmtPAGE.setInt(2, temp);
 				stmtPAGE.execute();
 
-				PreparedStatement stmtTitle = databaseConnection.prepareStatement("update employees set officeLocation =?  where employeeNumber=?");
+				PreparedStatement stmtTitle = databaseConnection.prepareStatement("update dbo.staff set officeLocation =?  where StaffID=?");
 				stmtTitle.setString(1, tempTitle);
 				stmtTitle.setInt(2, temp);
 				stmtTitle.execute();
 
-				PreparedStatement stmtBookCode = databaseConnection.prepareStatement("update employees set employeeName =?  where employeeNumber=?");
+				PreparedStatement stmtBookCode = databaseConnection.prepareStatement("update dbo.staff set FirstName =?  where StaffID=?");
 				stmtBookCode.setString(1, tempBookCode);
 				stmtBookCode.setInt(2, temp);
 				stmtBookCode.execute();
-
+				
+				updateJTable(refreshJTable);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -332,7 +362,7 @@ public class GUI extends JFrame implements DialogClient{
 
 
 
-			String diack = "SELECT MAX(employeeNumber) FROM employees;";
+			String diack = "SELECT MAX(StaffID) FROM dbo.staff;";
 			try {
 				ResultSet rs = stat.executeQuery(diack);
 				if(rs.next())	{
@@ -357,13 +387,13 @@ public class GUI extends JFrame implements DialogClient{
 			Using PreparedStatements in order to prevent SQL injection
 			 */
 			try {
-				PreparedStatement stmtInsert = databaseConnection.prepareStatement("INSERT INTO employees (employeeNumber, phoneNumber, employeeName, officeLocation) VALUES (?,?,?,?);");
+				PreparedStatement stmtInsert = databaseConnection.prepareStatement("INSERT INTO dbo.staff (StaffID, phoneNumber, employeeName, officeLocation) VALUES (?,?,?,?);");
 				stmtInsert.setInt(1, temp + 1);
 				stmtInsert.setString(2, tempPage);
 				stmtInsert.setString(3, tempBookCode);
 				stmtInsert.setString(4, tempTitle);
 				stmtInsert.execute();
-				//sqlAdd = "INSERT INTO orders (orderNum, price, customer, description) VALUES" + temp + "," +
+				updateJTable(refreshJTable);
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -386,17 +416,16 @@ public class GUI extends JFrame implements DialogClient{
 			try {
 
 				// PreparedStatement used to prevent SQL injection
-				PreparedStatement stmt = databaseConnection.prepareStatement("delete from employees where employeeNumber=?");
+				PreparedStatement stmt = databaseConnection.prepareStatement("delete from dbo.staff where StaffID=?");
 				stmt.setInt(1, temp);
 				stmt.execute();
-				//stat.execute(sql);
 				search();
+				updateJTable(refreshJTable);
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("DELETE: " + employeeBeingEdited );
-
 		}
 		employeeBeingEdited = null;
 		update();
@@ -407,7 +436,11 @@ public class GUI extends JFrame implements DialogClient{
 
 		employeeBeingEdited = null;
 		update();
-
+		try {
+			updateJTable(refreshJTable);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
