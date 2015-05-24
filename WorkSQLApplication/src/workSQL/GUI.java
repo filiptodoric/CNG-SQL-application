@@ -114,9 +114,10 @@ public class GUI extends JFrame implements DialogClient{
 					doubleClickEmployeeListListener = new MouseAdapter() {
 						public void mouseClicked(MouseEvent event) {
 							if (event.getClickCount() == 2) {
-								JList theList = (JList) event.getSource();
-								int index = theList.locationToIndex(event.getPoint());
-								employeeBeingEdited = (Employee) theList.getModel().getElementAt(index);
+								JTable theTable = (JTable) event.getSource();
+//								JList theList = (JList) event.getSource();
+								int index = theTable.rowAtPoint(event.getPoint());
+								employeeBeingEdited = editEmployee();//(Employee) theTable.getModel().getValueAt(1, 1);//getElementAt(index);
 								System.out.println("Double Click on: " + employeeBeingEdited);
 
 
@@ -172,7 +173,7 @@ public class GUI extends JFrame implements DialogClient{
 	private void disableListeners() {
 		view.getSearchButton().removeActionListener(theSearchButtonListener);
 		view.getdepartmentList().removeListSelectionListener(departmentListSelectionListener);
-		//view.getEmployeeList().removeListSelectionListener(employeeListSelectionListener);
+		view.getEmployeeList().getSelectionModel().removeListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().getSelectionModel().removeListSelectionListener(employeeListSelectionListener);
 		view.getEmployeeList().removeMouseListener(doubleClickEmployeeListListener);
 		view.getSearchText().removeKeyListener(keyListener);
@@ -241,7 +242,11 @@ public class GUI extends JFrame implements DialogClient{
 		update();
 	}
 
-
+	public Employee editEmployee()	{
+		int row = view.getEmployeeList().getSelectedRow();
+		return selectedEmployee = employeeList.get(row);
+	}
+	
 	// Update the remove button
 	private void updateSearchButton() {
 		view.getSearchButton().setEnabled(true);
