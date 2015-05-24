@@ -54,7 +54,7 @@ public class GUI extends JFrame implements DialogClient{
 		databaseConnection = aDB;
 		stat = aStatement;
 		departmentList = initialDepartments;
-		//employeeList = initialEmployees;
+		employeeList = initialEmployees;
 		selectedDepartment = null;
 		selectedEmployee = null;
 		thisFrame = this;
@@ -235,15 +235,9 @@ public class GUI extends JFrame implements DialogClient{
 	}
 	// This is called when the user selects a employee from the list
 	private void selectEmployee() {
-		
 		int row = view.getEmployeeList().getSelectedRow();
-//		int column = view.getEmployeeList().getSelectedColumn();
-//		selectedEmployee = view.getEmployeeList().gets
-		String staffID = view.employeeList.getModel().getValueAt(row, 0).toString();
-
-	
+		selectedEmployee = employeeList.get(row);
 		System.out.println("Employee Selected: " + selectedEmployee);
-
 		update();
 	}
 
@@ -256,19 +250,20 @@ public class GUI extends JFrame implements DialogClient{
 
 
 	// Update the list
+	@SuppressWarnings("unchecked")
 	private void updateList() {
 		boolean		foundSelected = false;
 
 		Department DepartmentArray[] = new Department[1]; //just to establish array type
 		view.getdepartmentList().setListData(((Department []) departmentList.toArray(DepartmentArray)));
 
-		Employee employeeArray[] = new Employee[1]; //just to establish array type
-		//view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
+//		Employee employeeArray[] = new Employee[1]; //just to establish array type
+//		view.getEmployeeList().setListData(((Employee []) employeeList.toArray(employeeArray)));
 
 		if (selectedDepartment != null)
 			view.getdepartmentList().setSelectedValue(selectedDepartment, true);
-		//		if (selectedEmployee != null)
-		//			view.getEmployeeList().setSelectedValue(selectedEmployee, true);
+//				if (selectedEmployee != null)
+//					view.getEmployeeList().setSelectedValue(selectedEmployee, true);
 	}
 
 	// Update the components
