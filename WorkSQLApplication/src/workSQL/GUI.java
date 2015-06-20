@@ -93,7 +93,7 @@ public class GUI extends JFrame implements DialogClient{
 			theAddButtonListener = new ActionListener()	{
 				public void actionPerformed(ActionEvent event)	{
 					int hold = 0;
-					newEmployee = new Employee(hold, "" , "", "", "");
+					newEmployee = new Employee(hold, "" , "", "", "", "");
 
 					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
 					addD.updateButton.setEnabled(false);
@@ -211,7 +211,8 @@ public class GUI extends JFrame implements DialogClient{
 						rs.getString("FirstName"),
 						rs.getString("LastName"),
 						rs.getString("phoneNumber"),
-						rs.getString("officeLocation")
+						rs.getString("officeLocation"),
+						rs.getString("StaffPosition")
 						);
 				employeeSearchResults.add(employee);
 			}

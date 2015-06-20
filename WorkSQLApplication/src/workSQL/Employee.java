@@ -10,43 +10,47 @@ public class Employee {
 	private String lastName;
 	private String phoneNumber; //phone number of the employee
 	private String officeLocation; //string location of office
+	private String staffPosition;
 	
-	public Employee(int empNum, String aName, String lName, String aNum, String aOffice){
+	public Employee(int empNum, String aName, String lName, String aNum, String aOffice, String aPosition){
 		employeeNumber = empNum;
 		firstName = aName;
 		lastName = lName;
 		phoneNumber = aNum;
 		officeLocation = aOffice;
+		staffPosition = aPosition;
 	}
 	
-	public int getemployeeNumber() {return employeeNumber;}
-	public String getFirstName() {return firstName;}
-	public String getLastName() {return lastName;}
-	public String getphoneNumber() {return phoneNumber;}
-	public String getofficeLocation() {return officeLocation;}
+	public int getemployeeNumber() 		{return employeeNumber;}
+	public String getFirstName() 		{return firstName;}
+	public String getLastName() 		{return lastName;}
+	public String getphoneNumber() 		{return phoneNumber;}
+	public String getofficeLocation() 	{return officeLocation;}
+	public String getStaffPosition()	{ return staffPosition;	}
 	
-	public void setemployeeNumber(int empNum)	{employeeNumber = empNum;}
-	public void setofficeLocation(String aOffice) {officeLocation = aOffice;}
-	public void setFirstName(String aName) {firstName = aName;}
-	public void setLastName(String lName) {firstName = lName;}
-	public void setphoneNumber(String aNum) {phoneNumber = aNum;}
+	public void setemployeeNumber(int empNum)		{employeeNumber = empNum;}
+	public void setofficeLocation(String aOffice) 	{officeLocation = aOffice;}
+	public void setFirstName(String aName) 			{firstName = aName;}
+	public void setLastName(String lName) 			{lastName = lName;}
+	public void setphoneNumber(String aNum) 		{phoneNumber = aNum;}
+	public void setStaffPosition(String aPosition)	{staffPosition = aPosition;}
 	
-	public String toString(){
-		
-		String keyIndent = "";
-		int max_key_digits = 11;
-		for(int i=0; i< max_key_digits-(""+employeeNumber).length(); i++ ) keyIndent = keyIndent + " ";
-		
-		String pageIndent = "";
-		int max_page_digits = 10;
-		for(int i=0; i< max_page_digits-(""+phoneNumber).length(); i++ ) pageIndent = pageIndent + " ";
-		
-
-		String nameIndent = "";
-		int max_name_digits = 20;
-		for(int i=0; i< max_name_digits-(""+firstName).length(); i++ ) nameIndent = nameIndent + " ";
-		
-		return "" + employeeNumber + keyIndent + firstName + nameIndent + phoneNumber + pageIndent + officeLocation;
-	}
+//	public String toString(){
+//		
+//		String keyIndent = "";
+//		int max_key_digits = 11;
+//		for(int i=0; i< max_key_digits-(""+employeeNumber).length(); i++ ) keyIndent = keyIndent + " ";
+//		
+//		String pageIndent = "";
+//		int max_page_digits = 10;
+//		for(int i=0; i< max_page_digits-(""+phoneNumber).length(); i++ ) pageIndent = pageIndent + " ";
+//		
+//
+//		String nameIndent = "";
+//		int max_name_digits = 20;
+//		for(int i=0; i< max_name_digits-(""+firstName).length(); i++ ) nameIndent = nameIndent + " ";
+//		
+//		return "" + employeeNumber + keyIndent + firstName + nameIndent + phoneNumber + pageIndent + officeLocation;
+//	}
 
 }

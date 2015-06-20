@@ -88,7 +88,8 @@ public class javaWithSQliteMain {
 						work.getString("FirstName"),
 						work.getString("LastName"),
 						work.getString("PhoneNumber"),
-						work.getString("OfficeLocation")
+						work.getString("OfficeLocation"), 
+						work.getString("StaffPosition")
 						);
 				employeeSearchResults.add(employee);
 			}

@@ -18,6 +18,7 @@ public class EmployeeDetailDialog extends JDialog {
 	public JTextField				firstNameField; 
 	public JTextField				phoneNumberField; 
 	public JTextField				lastNameField;
+	public JTextField				staffPositionField;
 	
 	public JButton					updateButton;
 	public JButton					deleteButton;
@@ -79,34 +80,40 @@ public class EmployeeDetailDialog extends JDialog {
         lc.anchor = GridBagConstraints.EAST;
         lc.insets = new Insets(5, 5, 5, 5);
 
-        aLabel = new JLabel("Office Location");
+        aLabel = new JLabel("First Name");
         lc.gridx = 0; lc.gridy = 0;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
-
-        aLabel = new JLabel("First Name");
+        
+        aLabel = new JLabel("Last Name");
         lc.gridx = 0; lc.gridy = 1;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
-
-        aLabel = new JLabel("Phone Number");
+        
+        aLabel = new JLabel("Staff Position");
+        lc.gridx = 0; lc.gridy = 2;
+        lc.gridwidth = 1; lc.gridheight = 1;
+        lc.weightx = 0.0; lc.weighty = 0.0;
+        layout.setConstraints(aLabel, lc);
+        getContentPane().add(aLabel);
+        
+        aLabel = new JLabel("Office Location");
         lc.gridx = 0; lc.gridy = 3;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
 
-        aLabel = new JLabel("Last Name");
-        lc.gridx = 0; lc.gridy = 2;
+        aLabel = new JLabel("Phone Number");
+        lc.gridx = 0; lc.gridy = 4;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
-
 
         aLabel = new JLabel("  "); //blank label
         lc.gridx = 0; lc.gridy = 5;
@@ -121,29 +128,46 @@ public class EmployeeDetailDialog extends JDialog {
         lc.weightx = 1.0; lc.weighty = 0.0;
         layout.setConstraints(aLabel, lc);
         getContentPane().add(aLabel);
-   		
-		officeLocationField = new JTextField(theEmployee.getofficeLocation());
-		officeLocationField.setFont(UIFont);
-        lc.gridx = 1; lc.gridy = 0;
-        lc.gridwidth = 3; lc.gridheight = 1;
-        lc.fill = GridBagConstraints.BOTH;
-        lc.weightx = 1.0; lc.weighty = 0.0;
-        layout.setConstraints(officeLocationField, lc);
-   		getContentPane().add(officeLocationField);
 
 		firstNameField = new JTextField(theEmployee.getFirstName());
 		firstNameField.setFont(UIFont);
-
-        lc.gridx = 1; lc.gridy = 1;
+        lc.gridx = 1; lc.gridy = 0;
         lc.gridwidth = 3; lc.gridheight = 1;
         lc.fill = GridBagConstraints.BOTH;
         lc.weightx = 1.0; lc.weighty = 0.0;
         layout.setConstraints(firstNameField, lc);
    		getContentPane().add(firstNameField);
+   		
+		lastNameField = new JTextField(""+ theEmployee.getLastName());
+		lastNameField.setFont(UIFont);
+		lc.gridx = 1; lc.gridy = 1;
+        lc.gridwidth = 3; lc.gridheight = 1;
+        lc.fill = GridBagConstraints.BOTH;
+        lc.weightx = 1.0; lc.weighty = 0.0;
+        layout.setConstraints(lastNameField, lc);
+   		getContentPane().add(lastNameField);
+   		
+		staffPositionField = new JTextField(""+ theEmployee.getStaffPosition());
+		staffPositionField.setFont(UIFont);
+		lc.gridx = 1; lc.gridy = 2;
+        lc.gridwidth = 3; lc.gridheight = 1;
+        lc.fill = GridBagConstraints.BOTH;
+        lc.weightx = 1.0; lc.weighty = 0.0;
+        layout.setConstraints(staffPositionField, lc);
+   		getContentPane().add(staffPositionField);
         
+		officeLocationField = new JTextField(theEmployee.getofficeLocation());
+		officeLocationField.setFont(UIFont);
+        lc.gridx = 1; lc.gridy = 3;
+        lc.gridwidth = 3; lc.gridheight = 1;
+        lc.fill = GridBagConstraints.BOTH;
+        lc.weightx = 1.0; lc.weighty = 0.0;
+        layout.setConstraints(officeLocationField, lc);
+   		getContentPane().add(officeLocationField);
+   		
 		phoneNumberField = new JTextField(""+ theEmployee.getphoneNumber());
 		phoneNumberField.setFont(UIFont);
-        lc.gridx = 1; lc.gridy = 3;
+        lc.gridx = 1; lc.gridy = 4;
         lc.gridwidth = 3; lc.gridheight = 1;
         lc.fill = GridBagConstraints.BOTH;
         lc.weightx = 1.0; lc.weighty = 0.0;
@@ -151,14 +175,7 @@ public class EmployeeDetailDialog extends JDialog {
    		getContentPane().add(phoneNumberField);
         
 
-		lastNameField = new JTextField(""+ theEmployee.getLastName());
-		lastNameField.setFont(UIFont);
-		lc.gridx = 1; lc.gridy = 2;
-        lc.gridwidth = 3; lc.gridheight = 1;
-        lc.fill = GridBagConstraints.BOTH;
-        lc.weightx = 1.0; lc.weighty = 0.0;
-        layout.setConstraints(lastNameField, lc);
-   		getContentPane().add(lastNameField);
+
 
 		// Add the Update button
 		updateButton = new JButton("UPDATE");
