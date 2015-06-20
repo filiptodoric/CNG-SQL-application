@@ -92,13 +92,12 @@ public class GUI extends JFrame implements DialogClient{
 
 			theAddButtonListener = new ActionListener()	{
 				public void actionPerformed(ActionEvent event)	{
-					int hold = 0;
-					newEmployee = new Employee(hold, "" , "", "", "", "");
+					int tempEmptyEmployee = 0;
+					newEmployee = new Employee(tempEmptyEmployee, "" , "", "", "", "");
 
 					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
 					addD.updateButton.setEnabled(false);
 					addD.deleteButton.setEnabled(false);
-					addD.lastNameField.setEnabled(false);
 					addD.setVisible(true);
 				}
 			};
@@ -192,7 +191,7 @@ public class GUI extends JFrame implements DialogClient{
 		String sqlSearch;
 
 		if(employeeSelected.length() < 2){
-			sqlSearch = "select * from dbo.staff where officeLocation like '%" + tempText + "%'";
+			sqlSearch = "select * from dbo.staff where officeLocation like '%" + tempText + "%' or FirstName like '%" + tempText + "%' or LastName like '%" + tempText + "%'";
 			System.out.println(sqlSearch);}
 		else{
 			sqlSearch = "select * from dbo.staff where officeLocation like '%" + tempText + "%' and FirstName = '" + employeeSelected + "'";
@@ -236,7 +235,7 @@ public class GUI extends JFrame implements DialogClient{
 	// This is called when the user selects a department from the list
 	private void selectDepartment() {
 		selectedDepartment = (Department)(view.getdepartmentList().getSelectedValue());
-		employeeSelected = selectedDepartment.getBookCode();
+		employeeSelected = selectedDepartment.getDepartmentName();
 		System.out.println("Department Selected: " + selectedDepartment);
 
 		update();
@@ -323,28 +322,39 @@ public class GUI extends JFrame implements DialogClient{
 
 
 			System.out.println("UPDATE: " + employeeBeingEdited );
-			String tempPage = employeeBeingEdited.getphoneNumber();
-			String tempTitle = employeeBeingEdited.getofficeLocation();
-			String tempBookCode = employeeBeingEdited.getFirstName();
-
+			String phoneNumber 		= employeeBeingEdited.getphoneNumber();
+			String officeLocation 	= employeeBeingEdited.getofficeLocation();
+			String firstName 		= employeeBeingEdited.getFirstName();
+			String lastName 		= employeeBeingEdited.getLastName();
+			String staffPosition 	= employeeBeingEdited.getStaffPosition();
 			/*
 			Using PreparedStatements in order to prevent SQL injection
 			 */
 			try {
-				PreparedStatement stmtPAGE = databaseConnection.prepareStatement("update dbo.staff set PhoneNumber =?  where StaffID=?");
-				stmtPAGE.setString(1, tempPage);
-				stmtPAGE.setInt(2, temp);
-				stmtPAGE.execute();
+				PreparedStatement phoneNumberPrep = databaseConnection.prepareStatement("update dbo.staff set PhoneNumber =?  where StaffID=?");
+				phoneNumberPrep.setString(1, phoneNumber);
+				phoneNumberPrep.setInt(2, temp);
+				phoneNumberPrep.execute();
 
-				PreparedStatement stmtTitle = databaseConnection.prepareStatement("update dbo.staff set officeLocation =?  where StaffID=?");
-				stmtTitle.setString(1, tempTitle);
-				stmtTitle.setInt(2, temp);
-				stmtTitle.execute();
+				PreparedStatement officeLocationPrep = databaseConnection.prepareStatement("update dbo.staff set officeLocation =?  where StaffID=?");
+				officeLocationPrep.setString(1, officeLocation);
+				officeLocationPrep.setInt(2, temp);
+				officeLocationPrep.execute();
 
-				PreparedStatement stmtBookCode = databaseConnection.prepareStatement("update dbo.staff set FirstName =?  where StaffID=?");
-				stmtBookCode.setString(1, tempBookCode);
-				stmtBookCode.setInt(2, temp);
-				stmtBookCode.execute();
+				PreparedStatement firstNamePrep = databaseConnection.prepareStatement("update dbo.staff set FirstName =?  where StaffID=?");
+				firstNamePrep.setString(1, firstName);
+				firstNamePrep.setInt(2, temp);
+				firstNamePrep.execute();
+				
+				PreparedStatement lastNamePrep = databaseConnection.prepareStatement("update dbo.staff set LastName =?  where StaffID=?");
+				lastNamePrep.setString(1, lastName);
+				lastNamePrep.setInt(2, temp);
+				lastNamePrep.execute();
+				
+				PreparedStatement staffPositionPrep = databaseConnection.prepareStatement("update dbo.staff set StaffPosition =?  where StaffID=?");
+				staffPositionPrep.setString(1, staffPosition);
+				staffPositionPrep.setInt(2, temp);
+				staffPositionPrep.execute();
 				
 				updateJTable(refreshJTable);
 			} catch (SQLException e) {
@@ -378,36 +388,31 @@ public class GUI extends JFrame implements DialogClient{
 			}
 
 
-			int temp = newEmployee.getemployeeNumber();	
-			temp = auto + 1;
-			String tempPage = newEmployee.getphoneNumber();
-			String tempTitle = newEmployee.getofficeLocation();
-			String tempBookCode = newEmployee.getFirstName();
+			String phoneNumberPrep 		= newEmployee.getphoneNumber();
+			String officeLocationPrep 	= newEmployee.getofficeLocation();
+			String firstNamePrep 		= newEmployee.getFirstName();
+			String lastNamePrep 		= newEmployee.getLastName();
+			String staffPositionPrep 	= newEmployee.getStaffPosition();
 			System.out.println("ADD: " + newEmployee );
 
 			/*
 			Using PreparedStatements in order to prevent SQL injection
 			 */
 			try {
-				PreparedStatement stmtInsert = databaseConnection.prepareStatement("INSERT INTO dbo.staff (StaffID, phoneNumber, employeeName, officeLocation) VALUES (?,?,?,?);");
-				stmtInsert.setInt(1, temp + 1);
-				stmtInsert.setString(2, tempPage);
-				stmtInsert.setString(3, tempBookCode);
-				stmtInsert.setString(4, tempTitle);
+				PreparedStatement stmtInsert = databaseConnection.prepareStatement("INSERT INTO dbo.staff (PhoneNumber, FirstName, LastName, StaffPosition, OfficeLocation) VALUES (?,?,?,?,?);");
+				stmtInsert.setString(1, phoneNumberPrep);
+				stmtInsert.setString(2, firstNamePrep);
+				stmtInsert.setString(3, lastNamePrep);
+				stmtInsert.setString(4, staffPositionPrep);
+				stmtInsert.setString(5, officeLocationPrep);
 				stmtInsert.execute();
 				updateJTable(refreshJTable);
-
+				search();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
-
 		}
-
-
-
 
 
 		else if(requestedOperation == DialogClient.operation.DELETE){

@@ -179,7 +179,6 @@ public class EmployeeDetailDialog extends JDialog {
 
 		// Add the Update button
 		updateButton = new JButton("UPDATE");
-
         lc.gridx = 1; lc.gridy = 6;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
@@ -188,7 +187,6 @@ public class EmployeeDetailDialog extends JDialog {
         
    	// Add the ADD button
    		addButton = new JButton("ADD");
-
    	    lc.gridx = 0; lc.gridy = 6;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
@@ -198,7 +196,6 @@ public class EmployeeDetailDialog extends JDialog {
    		
 		// Add the Delete button
 		deleteButton = new JButton("DELETE");
-
         lc.gridx = 2; lc.gridy = 6;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
@@ -207,7 +204,6 @@ public class EmployeeDetailDialog extends JDialog {
 
    		// Add the Cancel button
 		cancelButton = new JButton("CANCEL");
-        
         lc.gridx = 3; lc.gridy = 6;
         lc.gridwidth = 1; lc.gridheight = 1;
         lc.weightx = 0.0; lc.weighty = 0.0;
@@ -223,7 +219,8 @@ public class EmployeeDetailDialog extends JDialog {
 		theEmployee.setofficeLocation(officeLocationField.getText());
 		theEmployee.setFirstName(firstNameField.getText());
 		theEmployee.setLastName(lastNameField.getText());
-		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
+		theEmployee.setphoneNumber(phoneNumberField.getText());
+		theEmployee.setStaffPosition(staffPositionField.getText());
 		
 		//Inform the dialog client that the dialog finished
 		
@@ -240,8 +237,8 @@ public class EmployeeDetailDialog extends JDialog {
 		theEmployee.setofficeLocation(officeLocationField.getText());
 		theEmployee.setFirstName(firstNameField.getText());
 		theEmployee.setLastName(lastNameField.getText());
-		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
-		theEmployee.setemployeeNumber(Integer.parseInt(lastNameField.getText()));
+		theEmployee.setphoneNumber(phoneNumberField.getText());
+		theEmployee.setStaffPosition(staffPositionField.getText());
 		
 		
 		//Inform the dialog client that the dialog finished
@@ -255,11 +252,11 @@ public class EmployeeDetailDialog extends JDialog {
 	}
 	
 	private void deleteButtonClicked(){
-		
 		theEmployee.setofficeLocation(officeLocationField.getText());
 		theEmployee.setFirstName(firstNameField.getText());
 		theEmployee.setLastName(lastNameField.getText());
-		theEmployee.setphoneNumber(phoneNumberField.getText());//Integer.parseInt
+		theEmployee.setphoneNumber(phoneNumberField.getText());
+		theEmployee.setStaffPosition(staffPositionField.getText());
 		
 		//Inform the dialog client that the dialog finished
 		

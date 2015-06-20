@@ -35,22 +35,5 @@ public class Employee {
 	public void setphoneNumber(String aNum) 		{phoneNumber = aNum;}
 	public void setStaffPosition(String aPosition)	{staffPosition = aPosition;}
 	
-//	public String toString(){
-//		
-//		String keyIndent = "";
-//		int max_key_digits = 11;
-//		for(int i=0; i< max_key_digits-(""+employeeNumber).length(); i++ ) keyIndent = keyIndent + " ";
-//		
-//		String pageIndent = "";
-//		int max_page_digits = 10;
-//		for(int i=0; i< max_page_digits-(""+phoneNumber).length(); i++ ) pageIndent = pageIndent + " ";
-//		
-//
-//		String nameIndent = "";
-//		int max_name_digits = 20;
-//		for(int i=0; i< max_name_digits-(""+firstName).length(); i++ ) nameIndent = nameIndent + " ";
-//		
-//		return "" + employeeNumber + keyIndent + firstName + nameIndent + phoneNumber + pageIndent + officeLocation;
-//	}
-
+	
 }

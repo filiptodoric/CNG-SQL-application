@@ -12,7 +12,7 @@ public class Department {
 		//departmentNumber = aDepartmentNumber;
 	}
 	
-	public String getBookCode() {return departmentName;}
+	public String getDepartmentName() {return departmentName;}
 	//public String getdepartmentNumber() {return departmentNumber;}
 	
 	public String toString(){
