@@ -189,6 +189,7 @@ public class EmployeeDetailDialog extends JDialog {
         
    		Object[] array = departments.toArray();
    		departmentDropdown = new JComboBox(array);
+   		departmentDropdown.setSelectedIndex(theEmployee.getDepartmentNumber() - 1);
    		departmentDropdown.setFont(UIFont);
         lc.gridx = 1; lc.gridy = 5;
         lc.gridwidth = 3; lc.gridheight = 1;

@@ -67,7 +67,6 @@ public class GUI extends JFrame implements DialogClient{
 							System.out.println("Closing Database Connection");
 							databaseConnection.close();
 						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						System.exit(0);
@@ -93,7 +92,7 @@ public class GUI extends JFrame implements DialogClient{
 			theAddButtonListener = new ActionListener()	{
 				public void actionPerformed(ActionEvent event)	{
 					int tempEmptyEmployee = 0;
-					newEmployee = new Employee(tempEmptyEmployee, "" , "", "", "", "");
+					newEmployee = new Employee(tempEmptyEmployee, "" , "", "", "", "", -1); //TODO change from -1
 
 					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee, departmentList);
 					addD.updateButton.setEnabled(false);
@@ -198,7 +197,10 @@ public class GUI extends JFrame implements DialogClient{
 		}
 
 		try {
-
+/* TODO
+ * Change the above sqlsearch statement to also return the DeparmtentID
+ * 
+ */
 			ResultSet rs = stat.executeQuery(sqlSearch);
 			employeeSelected = "";
 			ArrayList<Employee> employeeSearchResults = new ArrayList<Employee>();
@@ -211,7 +213,8 @@ public class GUI extends JFrame implements DialogClient{
 						rs.getString("LastName"),
 						rs.getString("phoneNumber"),
 						rs.getString("officeLocation"),
-						rs.getString("StaffPosition")
+						rs.getString("StaffPosition"),
+						rs.getInt("DepmartmentID") 
 						);
 				employeeSearchResults.add(employee);
 			}
@@ -219,7 +222,6 @@ public class GUI extends JFrame implements DialogClient{
 			employeeList = employeeSearchResults;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -311,7 +313,6 @@ public class GUI extends JFrame implements DialogClient{
 
 	@Override
 	public void dialogFinished(DialogClient.operation requestedOperation) {
-		// TODO 
 
 
 		if(requestedOperation == DialogClient.operation.UPDATE){
@@ -358,7 +359,6 @@ public class GUI extends JFrame implements DialogClient{
 				
 				updateJTable(refreshJTable);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -383,7 +383,6 @@ public class GUI extends JFrame implements DialogClient{
 				}
 			} 
 			catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -409,7 +408,6 @@ public class GUI extends JFrame implements DialogClient{
 				updateJTable(refreshJTable);
 				search();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -434,7 +432,6 @@ public class GUI extends JFrame implements DialogClient{
 				updateJTable(refreshJTable);
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

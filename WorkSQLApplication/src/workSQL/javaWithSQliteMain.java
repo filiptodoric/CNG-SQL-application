@@ -55,7 +55,7 @@ public class javaWithSQliteMain {
 			 * The following is for creating a JTable of staff.
 			 */
 			
-			String staffQuery = "select * from dbo.staff;";
+			String staffQuery = "select d.DepmartmentID, s.* from dbo.Staff as s, dbo.Staff_Departments as d where s.StaffID=d.StaffID ";
 			System.out.println(staffQuery);
 			ResultSet work = stat.executeQuery(staffQuery);
 			ArrayList<Employee> employeeSearchResults = new ArrayList<Employee>();
@@ -88,7 +88,8 @@ public class javaWithSQliteMain {
 						work.getString("LastName"),
 						work.getString("PhoneNumber"),
 						work.getString("OfficeLocation"), 
-						work.getString("StaffPosition")
+						work.getString("StaffPosition"),
+						work.getInt("DepmartmentID")
 						);
 				employeeSearchResults.add(employee);
 			}

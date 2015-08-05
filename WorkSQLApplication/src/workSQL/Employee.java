@@ -5,20 +5,22 @@ public class Employee {
 	 * This class represents a employee that appears in a department database
 	 */
 	
-	private int    employeeNumber; //database table primary key id
+	private int employeeNumber; //database table primary key id
 	private String firstName; //string name of employee
 	private String lastName;
 	private String phoneNumber; //phone number of the employee
 	private String officeLocation; //string location of office
 	private String staffPosition;
+	private int departmentNumber;
 	
-	public Employee(int empNum, String aName, String lName, String aNum, String aOffice, String aPosition){
+	public Employee(int empNum, String aName, String lName, String aNum, String aOffice, String aPosition, int aDepartmentNumber){
 		employeeNumber = empNum;
 		firstName = aName;
 		lastName = lName;
 		phoneNumber = aNum;
 		officeLocation = aOffice;
 		staffPosition = aPosition;
+		departmentNumber = aDepartmentNumber;
 	}
 	
 	public int getemployeeNumber() 		{return employeeNumber;}
@@ -26,7 +28,8 @@ public class Employee {
 	public String getLastName() 		{return lastName;}
 	public String getphoneNumber() 		{return phoneNumber;}
 	public String getofficeLocation() 	{return officeLocation;}
-	public String getStaffPosition()	{ return staffPosition;	}
+	public String getStaffPosition()	{return staffPosition;}
+	public int getDepartmentNumber() 	{return departmentNumber;}
 	
 	public void setemployeeNumber(int empNum)		{employeeNumber = empNum;}
 	public void setofficeLocation(String aOffice) 	{officeLocation = aOffice;}
@@ -34,6 +37,7 @@ public class Employee {
 	public void setLastName(String lName) 			{lastName = lName;}
 	public void setphoneNumber(String aNum) 		{phoneNumber = aNum;}
 	public void setStaffPosition(String aPosition)	{staffPosition = aPosition;}
+	public void setDepartmentMumber(int aDepartmentNumber)	{departmentNumber = aDepartmentNumber;}
 	
 	
 }
