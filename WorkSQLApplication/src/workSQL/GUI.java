@@ -95,7 +95,7 @@ public class GUI extends JFrame implements DialogClient{
 					int tempEmptyEmployee = 0;
 					newEmployee = new Employee(tempEmptyEmployee, "" , "", "", "", "");
 
-					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee);
+					EmployeeDetailDialog addD 	 = new EmployeeDetailDialog(thisFrame, thisFrame, "Add a new employee", true, newEmployee, departmentList);
 					addD.updateButton.setEnabled(false);
 					addD.deleteButton.setEnabled(false);
 					addD.setVisible(true);
@@ -124,7 +124,7 @@ public class GUI extends JFrame implements DialogClient{
 								System.out.println("Double Click on: " + employeeBeingEdited);
 
 
-								EmployeeDetailDialog dialog = new EmployeeDetailDialog(thisFrame, thisFrame, "Update an existing employee", true, employeeBeingEdited);         
+								EmployeeDetailDialog dialog = new EmployeeDetailDialog(thisFrame, thisFrame, "Update an existing employee", true, employeeBeingEdited, departmentList);         
 								dialog.lastNameField.setEnabled(true);
 								dialog.addButton.setEnabled(false);
 								dialog.setVisible(true);
@@ -156,7 +156,7 @@ public class GUI extends JFrame implements DialogClient{
 
 
 							setDefaultCloseOperation(EXIT_ON_CLOSE);
-							setSize(600,300);
+							setSize(1024,768);
 
 							// Start off with everything updated properly to reflect the model state
 							update();
@@ -426,6 +426,10 @@ public class GUI extends JFrame implements DialogClient{
 				PreparedStatement stmt = databaseConnection.prepareStatement("delete from dbo.staff where StaffID=?");
 				stmt.setInt(1, temp);
 				stmt.execute();
+				stmt = databaseConnection.prepareStatement("delete from dbo.Staff_Departments where StaffID=?");
+				stmt.setInt(1, temp);
+				stmt.execute();
+				System.out.println("Deleting staff member with ID: " + temp);
 				search();
 				updateJTable(refreshJTable);
 

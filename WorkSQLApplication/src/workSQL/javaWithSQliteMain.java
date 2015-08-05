@@ -50,8 +50,7 @@ public class javaWithSQliteMain {
 		        System.out.println(s);
 		    } 
 			rs.close(); 
-
-
+			
 			/*
 			 * The following is for creating a JTable of staff.
 			 */
