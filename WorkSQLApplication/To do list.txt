@@ -1,0 +1,6 @@
+Known issues to be fixed:
+
+- Adding a new employee is not set up yet
+- A bunch of blank values show up on the orginal table, this might have to do with the department information
+- When clicking on an employee with a large ID the application crashes (index out of range)
+- Need to be able to set a new department for employees
